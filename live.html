@@ -1,0 +1,57 @@
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <style>
+    body {
+      background-color: grey;
+      padding: 5px;
+    }
+
+    div {
+      border: 0.5px solid red;
+      flex: 0 0 auto;
+    }
+    .flex-container {
+      display: flex;
+      justify-content: space-between;
+    }
+    .box-1 {
+      border: 0.5px solid red;
+      display: flex;
+    }
+  </style>
+  <div class="box-1">
+    <h3>Random Data</h3>
+  </div>
+  <div class="flex-container">
+    <div id="graph"></div>
+  </div>
+  <script>
+    function rand() {
+      return Math.random();
+    }
+
+    Plotly.plot("graph", [
+      {
+        y: [1, 2, 3].map(rand),
+        mode: "lines",
+        line: { color: "#80CAF6" },
+      },
+    ]);
+
+    var cnt = 0;
+
+    var interval = setInterval(function () {
+      Plotly.extendTraces(
+        "graph",
+        {
+          y: [[rand()]],
+        },
+        [0]
+      );
+
+      if (cnt === 100) clearInterval(interval);
+    }, 300);
+  </script>
+</body>
